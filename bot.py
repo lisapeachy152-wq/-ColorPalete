@@ -35,16 +35,11 @@ def main():
         application.add_handler(CommandHandler("palette", handlers.palette_command))
         application.add_handler(CommandHandler("color", handlers.color_command))
         application.add_handler(CommandHandler("harmony", handlers.harmony_command))
-        application.add_handler(CommandHandler("extract", handlers.extract_command))
         
-        # Add message handlers
+        # Add message handler for text
         application.add_handler(MessageHandler(
             filters.TEXT & ~filters.COMMAND,
             handlers.handle_message
-        ))
-        application.add_handler(MessageHandler(
-            filters.PHOTO,
-            handlers.handle_photo
         ))
         
         # Add callback handler for inline buttons
