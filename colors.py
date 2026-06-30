@@ -1,6 +1,5 @@
 import colorsys
 import random
-import webcolors
 
 class ColorUtils:
     # Predefined color palettes
@@ -55,7 +54,7 @@ class ColorUtils:
     @staticmethod
     def get_color_name(hex_color):
         """Get color name from hex code"""
-        return ColorUtils.COLOR_NAMES.get(hex_color.upper(), 'Unknown')
+        return ColorUtils.COLOR_NAMES.get(hex_color.upper(), 'Custom Color')
     
     @staticmethod
     def generate_palette(count=5, palette_type='random'):
@@ -92,7 +91,7 @@ class ColorUtils:
         
         colors = []
         for i in range(count):
-            hue = (h + i * 0.0833) % 1.0  # 30 degrees apart
+            hue = (h + i * 0.0833) % 1.0
             rgb_color = colorsys.hls_to_rgb(hue, l, s)
             hex_color = ColorUtils.rgb_to_hex(tuple(int(c * 255) for c in rgb_color))
             colors.append(hex_color)
@@ -106,7 +105,7 @@ class ColorUtils:
         
         colors = []
         for i in range(3):
-            hue = (h + i * 0.3333) % 1.0  # 120 degrees apart
+            hue = (h + i * 0.3333) % 1.0
             rgb_color = colorsys.hls_to_rgb(hue, l, s)
             hex_color = ColorUtils.rgb_to_hex(tuple(int(c * 255) for c in rgb_color))
             colors.append(hex_color)
@@ -120,7 +119,7 @@ class ColorUtils:
         
         colors = []
         for i in range(4):
-            hue = (h + i * 0.25) % 1.0  # 90 degrees apart
+            hue = (h + i * 0.25) % 1.0
             rgb_color = colorsys.hls_to_rgb(hue, l, s)
             hex_color = ColorUtils.rgb_to_hex(tuple(int(c * 255) for c in rgb_color))
             colors.append(hex_color)
