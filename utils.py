@@ -1,7 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 import io
 import os
-import colorsys
 from colors import ColorUtils
 
 class ImageGenerator:
@@ -10,7 +9,7 @@ class ImageGenerator:
         """Create an image showing a color palette"""
         try:
             # Create image
-            img = Image.new('RGB', (width, height + 100), color='white')
+            img = Image.new('RGB', (width, height + 80), color='white')
             draw = ImageDraw.Draw(img)
             
             # Calculate color block width
@@ -20,19 +19,19 @@ class ImageGenerator:
             for i, color in enumerate(colors):
                 x1 = i * block_width
                 x2 = (i + 1) * block_width
-                draw.rectangle([x1, 50, x2, height + 50], fill=color)
+                draw.rectangle([x1, 40, x2, height + 40], fill=color)
                 
                 # Draw color code
-                draw.text((x1 + 5, height + 60), color, fill='black')
+                try:
+                    draw.text((x1 + 5, height + 50), color, fill='black')
+                except:
+                    pass
             
             # Add title
             try:
-                # Try to use a font
-                font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 20)
+                draw.text((10, 10), title, fill='black')
             except:
-                font = ImageFont.load_default()
-            
-            draw.text((10, 10), title, fill='black', font=font)
+                pass
             
             # Save to bytes
             img_byte_arr = io.BytesIO()
@@ -52,12 +51,6 @@ class ImageGenerator:
             draw = ImageDraw.Draw(img)
             
             # Add color info
-            try:
-                font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 20)
-            except:
-                font = ImageFont.load_default()
-            
-            # Add white/black text for contrast
             color_info = ColorUtils.get_color_info(hex_color)
             text = f"{color_info['name']}\n{hex_color}\nRGB{color_info['rgb']}"
             
@@ -66,7 +59,10 @@ class ImageGenerator:
             brightness = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000
             text_color = 'white' if brightness < 128 else 'black'
             
-            draw.text((10, 10), text, fill=text_color, font=font)
+            try:
+                draw.text((10, 10), text, fill=text_color)
+            except:
+                pass
             
             # Save to bytes
             img_byte_arr = io.BytesIO()
